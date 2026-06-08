@@ -1,4 +1,4 @@
-name: Deploy Static App To Azure Blob
+name: Deploy To Azure Blob
 
 on:
   push:
