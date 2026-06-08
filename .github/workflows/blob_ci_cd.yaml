@@ -1,0 +1,33 @@
+name: Deploy Static App To Azure Blob
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Login To azure
+        uses: azure/login@v2
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Upload Teplates Files
+        run: |
+          az storage blob upload-batch --account-name {{ secrets.STORAGE_ACCOUNT_NAME }} --destination '$web' --source ./templates --overwrite
+
+      - name: Upload Static files
+        run: |
+          az storage blob upload-batch --account-name {{ secrets.STORAGE_ACCOUNT_NAME }} --destination '$web'  --source ./static --overwrite
+
+      - name: Getting Web URL
+        run: |
+          web_url=$(az storage account show --name {{ secrets.STORAGE_ACCOUNT_NAME }} --query "primaryEndpoint.web" -o -tsv)
+
+          echo "web available at $web_url"
