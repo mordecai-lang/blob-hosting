@@ -31,22 +31,22 @@ jobs:
 
           echo "web available at $web_url"
 
-#      - name: Deployment Notification
-#       if: success()
-#        uses: dawidd6/action-send-mail@v3
-#       with:
-#          server_address: smtp.gmail.com
-#          server_port: 465
-#          username: ${{ secrets.EMAIL_USERNAME }}
-#          password: ${{ secrets.EMAIL_PASSWORD }}
-#          subject: Deployment Successful
-#          to: mordecai@gmail.com
-#          from: GitHub Actions
-#          body: |
-#            Deployment Success
-#
-#            Repo: ${{ github.repository}}
-#            Branch: ${{ github.branch }}
-#            Commit: ${{ github.sha }}
-#            Workflow: ${{ github.workflow }}
-#            Run: ${{ github.run_id }}
+      - name: Deployment Notification
+        if: success()
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.gmail.com
+          server_port: 465
+          username: ${{ secrets.EMAIL_USERNAME }}
+          password: ${{ secrets.EMAIL_PASSWORD }}
+          subject: Deployment Successful
+          to: mordecaiomindecloud@gmail.com
+          from: ${{ secrets.EMAIL_USERNAME }}
+          body: |
+            Deployment Success
+
+            Repo: ${{ github.repository}}
+            Branch: ${{ github.ref_name }}
+            Commit: ${{ github.sha }}
+            Workflow: ${{ github.workflow }}
+            Run: ${{ github.run_id }}
