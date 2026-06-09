@@ -27,27 +27,26 @@ jobs:
 
       - name: Getting Web URL
         run: |
-          web_url=$(az storage account show --name ${{ secrets.STORAGE_ACCOUNT_NAME }} --query "primaryEndpoint.web" -o -tsv)
+          web_url=$(az storage account show --name ${{ secrets.STORAGE_ACCOUNT_NAME }} --query "primaryEndpoint.web" -o tsv)
 
           echo "web available at $web_url"
 
-      - name: Deployment Notification
-        if: success()
-        uses: dawidd6/action-send-mail@v3
-        with:
-          server_address: smtp.gmail.com
-          server_port: 465
-          username: ${{ secrets.EMAIL_USERNAME }}
-          password: ${{ secrets.EMAIL_PASSWORD }}
-          subject: Deployment Successful
-          to: mordecai@gmail.com
-          from: GitHub Actions
-          body: |
-            Deployment Success
-
-            Repo: ${{ github.repository}}
-            Branch: ${{ github.branch }}
-            Commit: ${{ github.sha }}
-            Triggered by: ${{ github.actor }}
-            Workflow: ${{ github.workflow }}
-            Run: ${{ github.run_id }}
+#      - name: Deployment Notification
+#       if: success()
+#        uses: dawidd6/action-send-mail@v3
+#       with:
+#          server_address: smtp.gmail.com
+#          server_port: 465
+#          username: ${{ secrets.EMAIL_USERNAME }}
+#          password: ${{ secrets.EMAIL_PASSWORD }}
+#          subject: Deployment Successful
+#          to: mordecai@gmail.com
+#          from: GitHub Actions
+#          body: |
+#            Deployment Success
+#
+#            Repo: ${{ github.repository}}
+#            Branch: ${{ github.branch }}
+#            Commit: ${{ github.sha }}
+#            Workflow: ${{ github.workflow }}
+#            Run: ${{ github.run_id }}
