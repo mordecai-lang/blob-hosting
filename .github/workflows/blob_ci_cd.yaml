@@ -19,11 +19,11 @@ jobs:
 
       - name: Upload Teplates Files
         run: |
-          az storage blob upload-batch --account-name ${{ secrets.STORAGE_ACCOUNT_NAME }} --destination '$web' --source ./templates --overwrite
+          az storage blob upload-batch --account-name ${{ secrets.STORAGE_ACCOUNT_NAME }} --destination '$web' --source ./templates --overwrite --auth-mode login
 
       - name: Upload Static files
         run: |
-          az storage blob upload-batch --account-name ${{ secrets.STORAGE_ACCOUNT_NAME }} --destination '$web'  --source ./static --overwrite
+          az storage blob upload-batch --account-name ${{ secrets.STORAGE_ACCOUNT_NAME }} --destination '$web'  --source ./static --overwrite --auth-mode login
 
       - name: Getting Web URL
         run: |
