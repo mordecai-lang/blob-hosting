@@ -47,7 +47,7 @@ jobs:
 
             Repo: ${{ github.repository}}
             Branch: ${{ github.branch }}
-            Commit: ${{ githab.sha }}
+            Commit: ${{ github.sha }}
             Triggered by: ${{ github.actor }}
             Workflow: ${{ github.workflow }}
             Run: ${{ github.run_id }}
