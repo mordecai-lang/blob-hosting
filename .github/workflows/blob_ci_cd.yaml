@@ -25,12 +25,9 @@ jobs:
         run: |
           az storage blob upload-batch --account-name ${{ secrets.STORAGE_ACCOUNT_NAME }} --destination '$web'  --source ./static --overwrite --auth-mode login
 
-      - name: Getting Web URL
+      - name: Web URL
         run: |
-          web_url=$(az storage account show --name ${{ secrets.STORAGE_ACCOUNT_NAME }} --query "primaryEndpoints.web" -o tsv)
-
-          echo "web available at $web_url"
-
+          echo "web available at https://${{ secrets.STORAGE_ACCOUNT_NAME }}.z6.web.core.windows.net"
       - name: Deployment Notification
         if: success()
         uses: dawidd6/action-send-mail@v3
