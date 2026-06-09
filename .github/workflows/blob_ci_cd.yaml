@@ -1,4 +1,4 @@
-name: Blob Storage CI/CD
+name: Blob Hosting Storage CI/CD
 on:
   push:
     branches:
