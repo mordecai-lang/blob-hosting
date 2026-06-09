@@ -27,7 +27,7 @@ jobs:
 
       - name: Getting Web URL
         run: |
-          web_url=$(az storage account show --name ${{ secrets.STORAGE_ACCOUNT_NAME }} --query "primaryEndpoint.web" -o tsv)
+          web_url=$(az storage account show --name ${{ secrets.STORAGE_ACCOUNT_NAME }} --query "primaryEndpoints.web" -o tsv)
 
           echo "web available at $web_url"
 
