@@ -1,8 +1,14 @@
 name: Blob Hosting Storage CI/CD
+
 on:
   push:
     branches:
       - main
+    paths:
+      - "static/**"
+      - "templates/**"
+
+  workflow_dispatch:
 
 jobs:
   deploy:
@@ -12,22 +18,23 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
 
-      - name: Login To azure
+      - name: Login to Azure
         uses: azure/login@v2
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-      - name: Upload Teplates Files
+      - name: Upload Templates Files
         run: |
           az storage blob upload-batch --account-name ${{ secrets.STORAGE_ACCOUNT_NAME }} --destination '$web' --source ./templates --overwrite --auth-mode login
 
-      - name: Upload Static files
+      - name: Upload Static Files
         run: |
-          az storage blob upload-batch --account-name ${{ secrets.STORAGE_ACCOUNT_NAME }} --destination '$web'  --source ./static --overwrite --auth-mode login
+          az storage blob upload-batch --account-name ${{ secrets.STORAGE_ACCOUNT_NAME }} --destination '$web' --source ./static --overwrite --auth-mode login
 
       - name: Web URL
         run: |
-          echo "web available at https://${{ secrets.STORAGE_ACCOUNT_NAME }}.z6.web.core.windows.net"
+          echo "Website available at: https://${{ secrets.STORAGE_ACCOUNT_NAME }}.z6.web.core.windows.net"
+
       - name: Deployment Notification
         if: success()
         uses: dawidd6/action-send-mail@v3
@@ -42,7 +49,7 @@ jobs:
           body: |
             Deployment Success
 
-            Repo: ${{ github.repository}}
+            Repo: ${{ github.repository }}
             Branch: ${{ github.ref_name }}
             Commit: ${{ github.sha }}
             Workflow: ${{ github.workflow }}
