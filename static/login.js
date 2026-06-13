@@ -26,7 +26,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
             let data;
 
-            // ✅ Handle cases where response is not JSON (avoids crash)
+            // ✅ Handle cases where response not JSON (avoids crash)
             try {
                 data = await response.json();
             } catch (e) {
